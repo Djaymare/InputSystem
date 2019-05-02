@@ -724,7 +724,7 @@ namespace UnityEngine.InputSystem
         /// that TODO</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="prefab"/> is <c>null</c>.</exception>
-        public static PlayerInput Instantiate(GameObject prefab, int playerIndex = -1, string controlScheme = null,
+        public static PlayerInput Instantiate(GameObject prefab, Transform parent = null, int playerIndex = -1, string controlScheme = null,
             int splitScreenIndex = -1, InputDevice pairWithDevice = null)
         {
             if (prefab == null)
@@ -737,7 +737,7 @@ namespace UnityEngine.InputSystem
             if (pairWithDevice != null)
                 ArrayHelpers.AppendWithCapacity(ref s_InitPairWithDevices, ref s_InitPairWithDevicesCount, pairWithDevice);
 
-            return DoInstantiate(prefab);
+            return DoInstantiate(prefab, parent);
         }
 
         ////TODO: allow instantiating with an existing InputUser
@@ -756,7 +756,7 @@ namespace UnityEngine.InputSystem
         /// Note that unlike <see cref="Object.Instantiate(Object)"/>, this method will always activate the resulting
         /// <see cref="GameObject"/> and its components.
         /// </remarks>
-        public static PlayerInput Instantiate(GameObject prefab, int playerIndex = -1, string controlScheme = null,
+        public static PlayerInput Instantiate(GameObject prefab, Transform parent = null, int playerIndex = -1, string controlScheme = null,
             int splitScreenIndex = -1, params InputDevice[] pairWithDevices)
         {
             if (prefab == null)
@@ -772,15 +772,16 @@ namespace UnityEngine.InputSystem
                     ArrayHelpers.AppendWithCapacity(ref s_InitPairWithDevices, ref s_InitPairWithDevicesCount, pairWithDevices[i]);
             }
 
-            return DoInstantiate(prefab);
+            return DoInstantiate(prefab, parent);
         }
 
-        private static PlayerInput DoInstantiate(GameObject prefab)
+        private static PlayerInput DoInstantiate(GameObject prefab, Transform parent)
         {
             GameObject instance;
             try
             {
                 instance = Object.Instantiate(prefab);
+                instance.transform.parent = parent;
                 instance.SetActive(true);
             }
             finally

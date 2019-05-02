@@ -369,7 +369,7 @@ namespace UnityEngine.InputSystem
                 return;
 
             PlayerInput.Instantiate(m_PlayerPrefab, playerIndex: playerIndex, splitScreenIndex: splitScreenIndex,
-                controlScheme: controlScheme, pairWithDevice: pairWithDevice);
+                controlScheme: controlScheme, pairWithDevice: pairWithDevice, parent: m_PlayerParent);
         }
 
         public void JoinPlayer(int playerIndex = -1, int splitScreenIndex = -1, string controlScheme = null, params InputDevice[] pairWithDevices)
@@ -378,7 +378,7 @@ namespace UnityEngine.InputSystem
                 return;
 
             PlayerInput.Instantiate(m_PlayerPrefab, playerIndex: playerIndex, splitScreenIndex: splitScreenIndex,
-                controlScheme: controlScheme, pairWithDevices: pairWithDevices);
+                controlScheme: controlScheme, pairWithDevices: pairWithDevices, parent: m_PlayerParent);
         }
 
         [SerializeField] internal PlayerNotifications m_NotificationBehavior;
@@ -389,6 +389,7 @@ namespace UnityEngine.InputSystem
         [SerializeField] internal PlayerLeftEvent m_PlayerLeftEvent;
         [SerializeField] internal InputActionProperty m_JoinAction;
         [SerializeField] internal GameObject m_PlayerPrefab;
+        [SerializeField] internal Transform m_PlayerParent;
         [SerializeField] internal bool m_SplitScreen;
         [SerializeField] internal bool m_MaintainAspectRatioInSplitScreen;
         [SerializeField] internal int m_FixedNumberOfSplitScreens = -1;

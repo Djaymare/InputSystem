@@ -105,6 +105,10 @@ namespace UnityEngine.InputSystem.Editor
                 --EditorGUI.indentLevel;
             }
 
+            // Player parent.
+            var playerParentProperty = serializedObject.FindProperty("m_PlayerParent");
+            EditorGUILayout.PropertyField(playerParentProperty);
+
             // Enabled-by-default.
             var allowJoiningProperty = serializedObject.FindProperty("m_AllowJoining");
             if (m_AllowingJoiningLabel == null)
