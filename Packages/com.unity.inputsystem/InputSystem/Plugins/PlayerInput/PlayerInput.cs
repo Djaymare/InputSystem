@@ -858,7 +858,9 @@ namespace UnityEngine.InputSystem
         {
             if (m_Actions == null)
                 return;
-
+            
+            var oldActions = m_Actions;
+            
             if (!m_InputActive && PlayerInputManager.instance != null && PlayerInputManager.instance.joinAction.reference.asset == m_Actions)
             {
                 m_Actions = Instantiate(m_Actions);
